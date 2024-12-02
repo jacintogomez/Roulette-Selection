@@ -51,7 +51,7 @@
                 </li>
             </ol>
         </div>
-        <button>Eliminate!</button>
+        <button v-on:click='eliminate1()'>Eliminate!</button>
     </div>
 </div>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -67,6 +67,18 @@
                     {name:'Al',fullname:'Albert Fattison'}
                 ],
                 eliminated:[]
+            }
+        },
+        methods:{
+            eliminate1(){
+                if(this.characters.length===1){
+                    this.mostrecentmsg=this.characters[0].fullname+' is the Winner!';
+                }else{
+                    let i=Math.floor(Math.random()*this.characters.length);
+                    let character=this.characters.splice(i,1)[0];
+                    this.eliminated.push(character);
+                    this.mostrecentmsg=character.fullname+' has been eliminated';
+                }
             }
         }
     })
