@@ -11,20 +11,42 @@
             margin: 2% 5%;
             text-align: center;
             border-radius: 15px;
+            background-color: lightpink;
         }
         li:hover{
             cursor: pointer;
             background-color: rgb(224,224,224);
         }
+        .inner-container{
+            display: flex;
+            flex-direction: column;
+            border: 1px solid black;
+            border-radius: 15px;
+            padding: 5px;
+            flex: 1;
+            min-height: 300px;
+            margin: 50px;
+            background-color: white;
+        }
         #app>ol{
             list-style-type: none;
             margin: 0;
             padding: 0;
+            border: 1px solid black;
+            border-radius: 5px;
         }
         #app li{
             padding-left: 6px;
             border-radius: 5px;
             width: 70px;
+        }
+        button{
+            height: 50px;
+            width: 100px;
+            border-radius: 5px;
+            background-color: red;
+            flex: 1;
+            margin: 50px;
         }
         {}
     </style>
@@ -34,8 +56,8 @@
     <h1>Character Roulette</h1>
     <p>Randomly eliminate names from a list until only 1 remains</p>
     <h1>{{mostrecentmsg}}</h1>
-    <div v-bind:style="{display:'flex',flexDirection:'row',justifyContent:'space-around'}">
-        <div v-bind:style="{display:'flex',flexDirection:'column'}">
+    <div v-bind:style="{display:'flex',flexDirection:'row',justifyContent:'space-between'}">
+        <div v-bind:class="'inner-container'">
             <h3>Eliminated</h3>
             <ol>
                 <li v-for='person in eliminated'>
@@ -43,7 +65,7 @@
                 </li>
             </ol>
         </div>
-        <div v-bind:style="{display:'flex',flexDirection:'column'}">
+        <div v-bind:class="'inner-container'">
             <h3>Contestants Remaining</h3>
             <ol>
                 <li v-for='person in characters'>
@@ -51,7 +73,9 @@
                 </li>
             </ol>
         </div>
-        <button v-on:click='eliminate1()'>Eliminate!</button>
+        <div>
+            <button v-on:click='eliminate1()'>Eliminate!</button>
+        </div>
     </div>
 </div>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -73,6 +97,7 @@
             eliminate1(){
                 if(this.characters.length===1){
                     this.mostrecentmsg=this.characters[0].fullname+' is the Winner!';
+                    document.title=this.characters[0].name+' Wins!';
                 }else{
                     let i=Math.floor(Math.random()*this.characters.length);
                     let character=this.characters.splice(i,1)[0];
