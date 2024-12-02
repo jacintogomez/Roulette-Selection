@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Roulette</title>
+    <style>
+        #app{
+            border: 1px solid black;
+            width: 90vw;
+            height: 90vh;
+            margin: 2% 5%;
+            text-align: center;
+            border-radius: 15px;
+        }
+        li:hover{
+            cursor: pointer;
+            background-color: rgb(224,224,224);
+        }
+        #app>ol{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        #app li{
+            padding-left: 6px;
+            border-radius: 5px;
+            width: 70px;
+        }
+        {}
+    </style>
+</head>
+<body>
+<div id='app'>
+    <h1>Character Roulette</h1>
+    <p>Randomly eliminate names from a list until only 1 remains</p>
+    <h1>{{mostrecentmsg}}</h1>
+    <div v-bind:style="{display:'flex',flexDirection:'row',justifyContent:'space-around'}">
+        <div v-bind:style="{display:'flex',flexDirection:'column'}">
+            <h3>Eliminated</h3>
+            <ol>
+                <li v-for='person in eliminated'>
+                    {{person.name}}
+                </li>
+            </ol>
+        </div>
+        <div v-bind:style="{display:'flex',flexDirection:'column'}">
+            <h3>Contestants Remaining</h3>
+            <ol>
+                <li v-for='person in characters'>
+                    {{person.name}}
+                </li>
+            </ol>
+        </div>
+        <button>Eliminate!</button>
+    </div>
+</div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const app=Vue.createApp({
+        data(){
+            return {
+                mostrecentmsg:'None',
+                characters:[
+                    {name:'Jack',fullname:'Jacinto Gomez'},
+                    {name:'Lisa',fullname:'Lisa Rigal'},
+                    {name:'John',fullname:'Jonathan Smith'},
+                    {name:'Al',fullname:'Albert Fattison'}
+                ],
+                eliminated:[]
+            }
+        }
+    })
+    app.mount('#app')
+</script>
+</body>
+</html>
