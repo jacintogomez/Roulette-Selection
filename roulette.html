@@ -44,16 +44,18 @@
             height: 50px;
             width: 100px;
             border-radius: 5px;
-            background-color: red;
+            color: white;
+            background-color: darkred;
             flex: 1;
             margin: 50px;
+            justify-content: center;
         }
         {}
     </style>
 </head>
 <body>
 <div id='app'>
-    <h1>Character Roulette</h1>
+    <h3>Character Roulette</h3>
     <p>Randomly eliminate names from a list until only 1 remains</p>
     <h1>{{mostrecentmsg}}</h1>
     <div v-bind:style="{display:'flex',flexDirection:'row',justifyContent:'space-between'}">
