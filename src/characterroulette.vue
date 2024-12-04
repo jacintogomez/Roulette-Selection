@@ -14,7 +14,7 @@
             </div>
         </div>
         <div v-bind:class="'inner-container'" v-bind:style="{ minHeight: '300px', minWidth: '150px' }">
-            <h3>Eliminated</h3>
+            <h3>Contestants</h3>
             <ol>
                 <li v-for="person in characters" :key=person>
                     {{person}}
@@ -24,7 +24,7 @@
         <button v-on:click="eliminate1()">Eliminate!</button>
     </div>
 </template>
-<script setup lang="ts">
+<script>
 import {characters} from './store.js';
 export default{
     data(){
