@@ -22,6 +22,7 @@ const addtototal=(numppl)=>{
 </script>
 
 <template>
+    <title>Enter Names</title>
     <div v-bind:class="'container'">
         <h1>Enter Character Names</h1>
         <form @submit.prevent="startgame">
@@ -29,7 +30,6 @@ const addtototal=(numppl)=>{
             <button type="button" @click.prevent="addtototal(numppl)">Add all</button>
             <div v-for="(name,index) in names" :key="index">
                 <input v-model="names[index]" placeholder="Enter name">
-                <button @click.prevent="removename(index)">-</button>
             </div>
             <button type='button' @click="addname">+</button>
             <button type='submit'>Begin</button>

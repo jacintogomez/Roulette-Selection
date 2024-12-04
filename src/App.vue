@@ -4,6 +4,10 @@ import {ref,computed} from 'vue';
 import CharacterRoulette from './characterroulette.vue';
 import EnterNames from './enternames.vue';
 import {RouterView} from 'vue-router';
+import {watch} from 'vue';
+import {useRoute} from 'vue-router';
+
+const route=useRoute();
 
 const routes={
     '/': EnterNames,
@@ -18,6 +22,15 @@ window.addEventListener('hashchange',()=>{
 const currentView=computed(()=>{
     return routes[currentPath.value.slice(1)||'/'];
 });
+
+watch(
+    ()=>route.meta.title,
+    (newtitle)=>{
+        if(newtitle){
+            document.title=newtitle;
+        }
+    }
+);
 
 </script>
 

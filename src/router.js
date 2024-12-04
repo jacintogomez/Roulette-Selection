@@ -7,11 +7,13 @@ const routes=[
         path:'/',
         name:'EnterNames',
         component:EnterNames,
+        meta:{title:"Enter Names"},
     },
     {
         path:'/roulette',
         name:'CharacterRoulette',
         component:CharacterRoulette,
+        meta:{title:"Roulette"},
     }
 ]
 
