@@ -1,6 +1,6 @@
 <template>
     <div id='app'>
-        <div v-bind:style="{display:'flex',flexDirection:'column'}">
+        <div v-bind:class="'main-container'">
             <h1>Character Roulette</h1>
             <p>Randomly eliminate names until only 1 remains</p>
             <h1 v-bind:style="{paddingBottom:'30px'}">{{mostrecentmsg}}</h1>
@@ -62,13 +62,18 @@ export default{
     border: 1px solid black;
     width: 90vw;
     height: 90vh;
-    margin: 2% 1%;
     text-align: center;
     border-radius: 15px;
+    padding: 2%;
+    background-color: lightcoral;
 }
 li:hover {
     cursor: pointer;
     background-color: rgb(224, 224, 224);
+}
+.main-container{
+    display: flex;
+    flex-direction: column;
 }
 .inner-container {
     display: flex;
@@ -79,6 +84,7 @@ li:hover {
     padding: 5px;
     margin: 0 5%;
     flex: 1;
+    background-color: white;
 }
 
 #app > ol {
