@@ -5,12 +5,19 @@ import {characters} from './store.js';
 
 const router=useRouter();
 const names=ref(['']);
+const numppl=ref('');
 
 const addname=()=>{names.value.push('');}
 const removename=(index)=>{names.value.splice(index,1);}
 const startgame=()=>{
-    characters.value=names.value.filter(name=>name.trim()!=='');
+    characters.value=names.value.filter((name)=>name.trim()!=='');
     router.push('/roulette');
+}
+const addtototal=(numppl)=>{
+    const num=parseInt(numppl,10);
+    if(!isNaN(num)&&num>0){
+        names.value=Array(num).fill('');
+    }
 }
 </script>
 
@@ -18,6 +25,8 @@ const startgame=()=>{
     <div v-bind:class="'container'">
         <h1>Enter Character Names</h1>
         <form @submit.prevent="startgame">
+            <input v-model="numppl" type="number" placeholder="Enter # of characters">
+            <button type="button" @click.prevent="addtototal(numppl)">Add all</button>
             <div v-for="(name,index) in names" :key="index">
                 <input v-model="names[index]" placeholder="Enter name">
                 <button @click.prevent="removename(index)">-</button>
