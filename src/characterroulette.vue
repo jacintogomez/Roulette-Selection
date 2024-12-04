@@ -1,29 +1,32 @@
 <template>
     <div id='app'>
-        <h1>Character Roulette</h1>
-        <p>Randomly eliminate names until only 2 remains</p>
-        <h1 v-bind:style="{paddingBottom:'30px'}">{{mostrecentmsg}}</h1>
-        <div v-bind:style="{display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center'}">
-            <div v-bind:class="'inner-container'" v-bind:style="{ minHeight: '300px', minWidth: '150px' }">
-                <h3>Eliminated</h3>
-                <ol>
-                    <li v-for="person in eliminated" :key=person>
-                        {{person}}
-                    </li>
-                </ol>
+        <div v-bind:style="{display:'flex',flexDirection:'column'}">
+            <h1>Character Roulette</h1>
+            <p>Randomly eliminate names until only 1 remains</p>
+            <h1 v-bind:style="{paddingBottom:'30px'}">{{mostrecentmsg}}</h1>
+            <div v-bind:style="{display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center'}">
+                <div v-bind:class="'inner-container'" v-bind:style="{minHeight:'300px',minWidth:'200px'}">
+                    <h3>Eliminated</h3>
+                    <ol>
+                        <li v-for="person in eliminated" :key=person>
+                            {{person}}
+                        </li>
+                    </ol>
+                </div>
+                <div v-bind:class="'inner-container'" v-bind:style="{minHeight:'300px',minWidth:'200px'}">
+                    <h3>Contestants</h3>
+                    <ol>
+                        <li v-for="person in characters" :key=person>
+                            {{person}}
+                        </li>
+                    </ol>
+                </div>
+                <button v-on:click="eliminate1()">Eliminate!</button>
             </div>
         </div>
-        <div v-bind:class="'inner-container'" v-bind:style="{ minHeight: '300px', minWidth: '150px' }">
-            <h3>Contestants</h3>
-            <ol>
-                <li v-for="person in characters" :key=person>
-                    {{person}}
-                </li>
-            </ol>
-        </div>
-        <button v-on:click="eliminate1()">Eliminate!</button>
     </div>
 </template>
+
 <script>
 import {characters} from './store.js';
 export default{
@@ -59,7 +62,7 @@ export default{
     border: 1px solid black;
     width: 90vw;
     height: 90vh;
-    margin: 2% 5%;
+    margin: 2% 1%;
     text-align: center;
     border-radius: 15px;
 }
@@ -69,11 +72,15 @@ li:hover {
 }
 .inner-container {
     display: flex;
+    width: 100%;
     flex-direction: column;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 5px;
+    margin: 0 5%;
+    flex: 1;
 }
+
 #app > ol {
     list-style-type: none;
     margin: 0;
@@ -90,6 +97,7 @@ button {
     height: 50px;
     border-radius: 5px;
     background-color: red;
+    flex: 0.4;
 }
 </style>
 
