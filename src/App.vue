@@ -24,7 +24,7 @@ const currentView=computed(()=>{
 <template>
     <div>
         <nav>
-            <RouterLink to="/">Enter Names</RouterLink>
+            <RouterLink to="/">Enter Names</RouterLink> |
             <RouterLink to="/roulette">Roulette</RouterLink>
         </nav>
         <RouterView />
