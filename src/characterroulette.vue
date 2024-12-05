@@ -1,7 +1,40 @@
+<script>
+import {characters,pgtitle} from './store.js';
+export default{
+    data(){
+        return {
+            eliminated:[],
+            mostrecentmsg:'None',
+        };
+    },
+    computed:{
+        pgtitle() {
+            return pgtitle;
+        },
+        characters(){
+            return characters.value;
+        }
+    },
+    methods:{
+        eliminate1(){
+            if(this.characters.length===1){
+                this.mostrecentmsg=this.characters[0]+' is the Winner!';
+                document.title=this.characters[0]+' Wins!';
+            }else{
+                let i=Math.floor(Math.random()*this.characters.length);
+                let character=this.characters.splice(i,1)[0];
+                this.eliminated.push(character);
+                this.mostrecentmsg=character+' has been eliminated!';
+            }
+        }
+    }
+};
+</script>
+
 <template>
     <div id='app'>
         <div v-bind:class="'main-container'">
-            <h1>Character Roulette</h1>
+            <h1>{{pgtitle}}</h1>
             <p>Randomly eliminate names until only 1 remains</p>
             <h1 v-bind:style="{paddingBottom:'30px'}">{{mostrecentmsg}}</h1>
             <div v-bind:style="{display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center'}">
@@ -26,36 +59,6 @@
         </div>
     </div>
 </template>
-
-<script>
-import {characters} from './store.js';
-export default{
-    data(){
-        return {
-            eliminated:[],
-            mostrecentmsg:'None',
-        };
-    },
-    computed:{
-        characters(){
-            return characters.value;
-        }
-    },
-    methods:{
-        eliminate1(){
-            if(this.characters.length===1){
-                this.mostrecentmsg=this.characters[0]+' is the Winner!';
-                document.title=this.characters[0]+' Wins!';
-            }else{
-                let i=Math.floor(Math.random()*this.characters.length);
-                let character=this.characters.splice(i,1)[0];
-                this.eliminated.push(character);
-                this.mostrecentmsg=character+' has been eliminated!';
-            }
-        }
-    }
-};
-</script>
 
 <style scoped>
 #app {

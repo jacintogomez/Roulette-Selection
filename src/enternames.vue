@@ -1,16 +1,18 @@
 <script setup>
 import {ref} from 'vue';
 import {useRouter} from 'vue-router';
-import {characters} from './store.js';
+import {characters,pgtitle} from './store.js';
 
 const router=useRouter();
 const names=ref(['']);
 const numppl=ref('');
+const newpgtitle=ref('');
 
 const addname=()=>{names.value.push('');}
 const removename=(index)=>{names.value.splice(index,1);}
 const startgame=()=>{
     characters.value=names.value.filter((name)=>name.trim()!=='');
+    pgtitle.value=newpgtitle.value;
     router.push('/roulette');
 }
 const addtototal=(numppl)=>{
@@ -26,7 +28,8 @@ const addtototal=(numppl)=>{
     <div v-bind:class="'container'">
         <h1>Enter Character Names</h1>
         <form @submit.prevent="startgame">
-            <input v-model="numppl" type="number" placeholder="Enter # of characters">
+            <input v-model="newpgtitle" placeholder="Group title">
+            <input v-model="numppl" type="number" placeholder="# of characters">
             <button type="button" @click.prevent="addtototal(numppl)">Add all</button>
             <div v-for="(name,index) in names" :key="index">
                 <input v-model="names[index]" placeholder="Enter name">

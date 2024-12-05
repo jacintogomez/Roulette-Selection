@@ -31,7 +31,6 @@ watch(
         }
     }
 );
-
 </script>
 
 <template>
@@ -43,3 +42,12 @@ watch(
         <RouterView />
     </div>
 </template>
+
+<style scoped>
+nav{
+    color: lightgreen;
+}
+RouterLink{
+    color: lightgreen;
+}
+</style>
