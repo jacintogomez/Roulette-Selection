@@ -5,24 +5,36 @@ export default{
         return {
             eliminated:[],
             mostrecentmsg:'None',
+            randomized:[],
         };
+    },
+    created(){
+        this.randomized=this.scrambled(characters.value);
     },
     computed:{
         pgtitle() {
             return pgtitle;
         },
         characters(){
-            return characters.value;
+            return this.randomized;
         }
     },
     methods:{
+        scrambled(originalar){
+            let ar=[...originalar];
+            for(let i=ar.length-1;i>0;i--){
+                const j=Math.floor(Math.random()*(i+1));
+                [ar[i],ar[j]]=[ar[j],ar[i]];
+            }
+            return ar;
+        },
         eliminate1(){
-            if(this.characters.length===1){
-                this.mostrecentmsg=this.characters[0]+' is the Winner!';
-                document.title=this.characters[0]+' Wins!';
+            if(this.randomized.length===1){
+                this.mostrecentmsg=this.randomized[0]+' is the Winner!';
+                document.title=this.randomized[0]+' Wins!';
             }else{
-                let i=Math.floor(Math.random()*this.characters.length);
-                let character=this.characters.splice(i,1)[0];
+                let i=Math.floor(Math.random()*this.randomized.length);
+                let character=this.randomized.splice(i,1)[0];
                 this.eliminated.push(character);
                 this.mostrecentmsg=character+' has been eliminated!';
             }
@@ -100,7 +112,6 @@ li:hover {
 #app li {
     padding-left: 6px;
     border-radius: 5px;
-    width: 70px;
 }
 button {
     height: 50px;
