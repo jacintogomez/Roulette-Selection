@@ -80,7 +80,7 @@ export default{
     text-align: center;
     border-radius: 15px;
     padding: 2%;
-    background-color: lightcoral;
+    background-color: lightgreen;
 }
 li:hover {
     cursor: pointer;
