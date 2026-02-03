@@ -4,21 +4,26 @@ import {useRouter} from 'vue-router';
 import {characters,pgtitle} from './store.js';
 
 const router=useRouter();
-const names=ref(['']);
-const numppl=ref('');
+const namesText=ref('');
 const newpgtitle=ref('');
 
-const addname=()=>{names.value.push('');}
-const removename=(index)=>{names.value.splice(index,1);}
 const startgame=()=>{
-    characters.value=names.value.filter((name)=>name.trim()!=='');
-    pgtitle.value=newpgtitle.value;
+    // Split by newlines and filter out empty lines
+    const namesList = namesText.value
+        .split('\n')
+        .map(name => name.trim())
+        .filter(name => name !== '');
+
+    characters.value = namesList;
+    pgtitle.value = newpgtitle.value;
     router.push('/roulette');
 }
-const addtototal=(numppl)=>{
-    const num=parseInt(numppl,10);
-    if(!isNaN(num)&&num>0){
-        names.value=Array(num).fill('');
+
+// Prevent Enter key from submitting the form when in textarea
+const handleKeydown = (event) => {
+    if (event.key === 'Enter' && event.target.tagName === 'TEXTAREA') {
+        // Allow Enter in textarea, prevent form submission
+        event.stopPropagation();
     }
 }
 </script>
@@ -27,15 +32,15 @@ const addtototal=(numppl)=>{
     <title>Enter Names</title>
     <div v-bind:class="'container'">
         <h1>Enter Character Names</h1>
-        <form @submit.prevent="startgame">
+        <form @submit.prevent="startgame" @keydown.enter="handleKeydown">
             <input v-model="newpgtitle" placeholder="Group title">
-            <input v-model="numppl" type="number" placeholder="# of characters">
-            <button type="button" @click.prevent="addtototal(numppl)">Add all</button>
-            <div v-for="(name,index) in names" :key="index">
-                <input v-model="names[index]" placeholder="Enter name">
-            </div>
-            <button type='button' @click="addname">+</button>
-            <button type='submit'>Begin</button>
+            <textarea
+                v-model="namesText"
+                placeholder="Enter character names (one per line)"
+                rows="10"
+                @keydown.enter.stop
+            ></textarea>
+            <button type='button' @click="startgame">Begin</button>
         </form>
     </div>
 </template>
@@ -51,6 +56,37 @@ const addtototal=(numppl)=>{
     justify-content: flex-start;
     align-items: center;
     background-color: lightcoral;
+}
+
+textarea {
+    width: 80%;
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    resize: vertical;
+}
+
+input {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
 }
 </style>
 
