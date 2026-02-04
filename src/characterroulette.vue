@@ -69,24 +69,28 @@ export default{
             <h1>{{pgtitle}}</h1>
             <p>Randomly eliminate names until only 1 remains</p>
             <h1 v-bind:style="{paddingBottom:'30px'}">{{mostrecentmsg}}</h1>
-            <div v-bind:style="{display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center'}">
-                <div v-bind:class="'inner-container'" v-bind:style="{minHeight:'300px',minWidth:'200px'}">
-                    <h3>Eliminated</h3>
-                    <ol>
-                        <li v-for="person in eliminated" :key=person>
-                            {{person}}
-                        </li>
-                    </ol>
+            <div v-bind:class="'content-wrapper'">
+                <div v-bind:class="'boxes-container'">
+                    <div v-bind:class="'inner-container'" v-bind:style="{minWidth:'200px'}">
+                        <h3>Eliminated</h3>
+                        <ol>
+                            <li v-for="person in eliminated" :key=person>
+                                {{person}}
+                            </li>
+                        </ol>
+                    </div>
+                    <div v-bind:class="'inner-container'" v-bind:style="{minWidth:'200px'}">
+                        <h3>Contestants</h3>
+                        <ol>
+                            <li v-for="person in characters" :key=person>
+                                {{person}}
+                            </li>
+                        </ol>
+                    </div>
                 </div>
-                <div v-bind:class="'inner-container'" v-bind:style="{minHeight:'300px',minWidth:'200px'}">
-                    <h3>Contestants</h3>
-                    <ol>
-                        <li v-for="person in characters" :key=person>
-                            {{person}}
-                        </li>
-                    </ol>
+                <div v-bind:class="'button-container'">
+                    <button v-on:click="eliminate1()">Eliminate!</button>
                 </div>
-                <button v-on:click="eliminate1()">Eliminate!</button>
             </div>
         </div>
     </div>
@@ -100,7 +104,7 @@ export default{
     text-align: center;
     border-radius: 15px;
     padding: 2%;
-    background-color: lightcoral;
+    background-color: lightgreen;
 }
 li:hover {
     cursor: pointer;
@@ -109,6 +113,27 @@ li:hover {
 .main-container{
     display: flex;
     flex-direction: column;
+    height: 100%;
+}
+.content-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex: 1;
+    overflow: hidden;
+}
+.boxes-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex: 1;
+    align-items: flex-start;
+    overflow-y: auto;
+}
+.button-container {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 20px;
 }
 .inner-container {
     display: flex;
@@ -117,9 +142,10 @@ li:hover {
     border: 1px solid black;
     border-radius: 10px;
     padding: 5px;
-    margin: 0 5%;
     flex: 1;
     background-color: white;
+    max-height: 100%;
+    overflow-y: auto;
 }
 
 #app > ol {
@@ -135,8 +161,11 @@ li:hover {
 }
 button {
     height: 50px;
+    width: 120px;
     border-radius: 5px;
     background-color: red;
-    flex: 0.4;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 </style>
