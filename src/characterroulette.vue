@@ -6,10 +6,19 @@ export default{
             eliminated:[],
             mostrecentmsg:'None',
             randomized:[],
+            gameInProgress: true,
         };
     },
     created(){
         this.randomized=this.scrambled(characters.value);
+    },
+    mounted(){
+        // Add beforeunload listener when component is mounted
+        window.addEventListener('beforeunload', this.handleBeforeUnload);
+    },
+    beforeUnmount(){
+        // Clean up the event listener when component is destroyed
+        window.removeEventListener('beforeunload', this.handleBeforeUnload);
     },
     computed:{
         pgtitle() {
@@ -20,6 +29,15 @@ export default{
         }
     },
     methods:{
+        handleBeforeUnload(event){
+            // Only show warning if game is still in progress (no winner yet)
+            if(this.gameInProgress){
+                event.preventDefault();
+                // Chrome requires returnValue to be set
+                event.returnValue = '';
+                return '';
+            }
+        },
         scrambled(originalar){
             let ar=[...originalar];
             for(let i=ar.length-1;i>0;i--){
@@ -32,6 +50,8 @@ export default{
             if(this.randomized.length===1){
                 this.mostrecentmsg=this.randomized[0]+' is the Winner!';
                 document.title=this.randomized[0]+' Wins!';
+                // Game is over, disable the warning
+                this.gameInProgress = false;
             }else{
                 let i=Math.floor(Math.random()*this.randomized.length);
                 let character=this.randomized.splice(i,1)[0];
@@ -80,7 +100,7 @@ export default{
     text-align: center;
     border-radius: 15px;
     padding: 2%;
-    background-color: lightgreen;
+    background-color: lightcoral;
 }
 li:hover {
     cursor: pointer;
@@ -120,10 +140,3 @@ button {
     flex: 0.4;
 }
 </style>
-
-
-
-
-
-
-
